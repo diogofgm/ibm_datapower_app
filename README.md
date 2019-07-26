@@ -1,1 +1,1 @@
-# datapower_app
+# IBM DataPower App for Splunk
