@@ -1,2 +1,5 @@
 local/
 local.meta
+build/
+addon_builder.conf
+.vscode
