@@ -1,0 +1,9 @@
+<setup>
+  <block title="Configure the IBM DataPower App for Splunk" endpoint="data/macros" entity="datapower_index">
+    <text> &lt;i&gt;Specify the index for the IBM DataPower data.&lt;/i&gt;</text>
+    <input field="definition">
+      <label>Index</label>
+      <type>text</type>
+    </input>
+  </block>
+</setup>
