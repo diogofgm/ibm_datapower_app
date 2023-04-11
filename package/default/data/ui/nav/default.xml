@@ -1,7 +1,33 @@
-<nav search_view="search" color="#65A637">
-  <view name="search" default='true' />
-  <view name="data_models" />
-  <view name="reports" />
-  <view name="alerts" />
-  <view name="dashboards" />
+<nav search_view="search" color="#2543F1">
+  <view name="ibm_datapower_overview" default='true' />
+  <collection label="Analytics">
+  </collection>
+  <collection label="Transactions">
+  </collection>
+  <collection label="Analytics">
+    <view name="ibm_datapower_service_activity" />
+    <view name="ibm_datapower_service_latency" />
+  </collection>
+  <collection label="Resources">
+    <view name="ibm_datapower_device_resources" />
+    <view name="ibm_datapower_service_memory" />
+  </collection>
+  <collection label="Security">
+    <view name="ibm_datapower_authentication_overview" />
+    <view name="ibm_datapower_expired_certificates" />
+    <view name="ibm_datapower_security_violations" />
+  </collection>
+  <collection label="Other">
+    <view name="search" />
+    <view name="data_models" />
+    <view name="reports" />
+    <view name="alerts" />
+    <view name="dashboards" />
+  </collection>
+  <collection label="Configurations">
+	<view name="ibm_datapower_setup" />
+    <view name="ibm_datapower_troubleshoot" />
+	<view name="ibm_datapower_support" />
+    <view name="ibm_datapower_about" />
+  </collection>
 </nav>
