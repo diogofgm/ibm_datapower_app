@@ -1,10 +1,10 @@
 {
   "schemaVersion": "2.0.0",
   "info": {
-    "title": "Aruba Networks Add-on for Splunk",
+    "title": "IBM Datapower App for Splunk",
     "id": {
       "group": null,
-      "name": "TA-aruba_networks",
+      "name": "ibm_datapower_app",
       "version": "1.1.0"
     },
     "author": [
