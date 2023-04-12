@@ -1,6 +1,7 @@
 <nav search_view="search" color="#2543F1">
   <view name="ibm_datapower_overview" default='true' />
   <collection label="Analytics">
+    <view source="all" match="ibm_datapower_analytics" />
   </collection>
   <collection label="Transactions">
   </collection>
@@ -16,6 +17,10 @@
     <view name="ibm_datapower_authentication_overview" />
     <view name="ibm_datapower_expired_certificates" />
     <view name="ibm_datapower_security_violations" />
+    <view source="all" match="ibm_datapower_security" />
+  </collection>
+  <collection label="System">
+    <view source="all" match="ibm_datapower_system" />
   </collection>
   <collection label="Other">
     <view name="search" />
