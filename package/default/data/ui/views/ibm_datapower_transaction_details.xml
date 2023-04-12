@@ -1,0 +1,100 @@
+<form script="table_icons.js" stylesheet="table_decorations.css" version="1.1">
+  <label>Transaction Details</label>
+  <search base="bs_trans">
+    <query>
+          
+        </query>
+  </search>
+  <init>
+    <set token="transaction"></set>
+    <set token="time"></set>
+    <set token="status"></set>
+    <set token="device"></set>
+    <set token="domain"></set>
+    <set token="service"></set>
+    <set token="operation"></set>
+    <set token="src_ip"></set>
+  </init>
+  <search id="bs_trans">
+    <query>
+      `datapower_index` trans=$trans_id$ | table log log_level _time direction log_level wsgw src_ip event_code message
+    </query>
+  </search>
+  <fieldset submitButton="true" autoRun="true">
+    <input type="text" token="trans_id" searchWhenChanged="false">
+      <label>Transaction</label>
+    </input>
+    <input type="time" token="datetime">
+      <label></label>
+      <default>
+        <earliest>0</earliest>
+        <latest></latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <search base="bs_trans">
+        <query>
+          stats earliest(_time) AS _time values(operation) AS operation by host src_ip
+        </query>
+      </search>
+      <title>Transaction $trans_id$</title>
+      <html>
+        <table>
+          <tr>
+            <td data-cell-index="1" class="icon"><i class="icon-clock" title="time"></i></td>
+            <td>Time</td>
+            <td>$time$</td>
+          </tr>
+          <tr>
+            <td data-cell-index="1" class="icon"><i class="icon-flag" title="status"></i></td>
+            <td>Status</td>
+            <td>$status$</td>
+          </tr>
+          <tr>
+            <td data-cell-index="1" class="icon"><i class="icon-server" title="device"></i></td>
+            <td>Device</td>
+            <td>$device$</td>
+          </tr>
+          <tr>
+            <td data-cell-index="1" class="icon"><i class="icon-globe" title="domain"></i></td>
+            <td>Domain</td>
+            <td>$domain$</td>
+          </tr>
+          <tr>
+            <td data-cell-index="1" class="icon"><i class="icon-gear" title="service"></i></td>
+            <td>Service</td>
+            <td>$service$</td>
+          </tr>
+          <tr>
+            <td data-cell-index="1" class="icon"><i class="icon-clock" title="time"></i></td>
+            <td>Operation</td>
+            <td>$operation$</td>
+          </tr>
+          <tr>
+            <td data-cell-index="1" class="icon"><i class="icon-clock" title="time"></i></td>
+            <td>Client IP</td>
+            <td>$src_ip$</td>
+          </tr>
+        </table>
+      </html>
+    </panel>
+    <panel>
+      <title>Transaction Analysis</title>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table id="event_list">
+        <search>
+          <query>`datapower_index` trans=$trans_id$ | table log log_level _time direction log_level wsgw src_ip event_code message</query>
+          <earliest>$datetime.earliest$</earliest>
+          <latest>$datetime.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>

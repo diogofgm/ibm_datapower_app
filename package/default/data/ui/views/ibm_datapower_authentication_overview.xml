@@ -1,0 +1,31 @@
+<form>
+  <label>Authentication Overview</label>
+  <fieldset submitButton="true" autoRun="true">
+    <input type="time" token="timerange">
+      <label></label>
+      <default>
+        <earliest>0</earliest>
+        <latest></latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Authentications</title>
+      <table>
+        <search>
+          <query>`datapower_index` tag="authentication" tag="privileged"
+| table _time log_level user dvc _raw
+| rename _time AS "Time" log_level AS "Log Level" user AS "User" dvc AS "Device" _raw AS "Event"
+| convert ctime("Time")</query>
+          <earliest>$timerange.earliest$</earliest>
+          <latest>$timerange.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>

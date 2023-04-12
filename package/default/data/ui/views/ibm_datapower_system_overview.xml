@@ -1,0 +1,52 @@
+<form>
+  <label>ibm_datapower_system_overview</label>
+  <fieldset submitButton="true" autoRun="true">
+    <input type="time" token="timerange">
+      <label></label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <single>
+        <search>
+          <query>| tstats dc(host) where `datapower_index`</query>
+          <earliest>$timerange.earliest$</earliest>
+          <latest>$timerange.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">Datapower Hosts</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <search>
+          <query>`datapower_index` | stats dc(domain)</query>
+          <earliest>$timerange.earliest$</earliest>
+          <latest>$timerange.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Transactions per Host</title>
+      <chart>
+        <search>
+          <query>`datapower_index` | timechart span=5m dc(trans) by host</query>
+          <earliest>$timerange.earliest$</earliest>
+          <latest>$timerange.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+</form>

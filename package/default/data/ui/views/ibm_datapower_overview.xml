@@ -1,0 +1,74 @@
+<form>
+  <label>Overview</label>
+  <description>https://montier.atlassian.net/wiki/spaces/DPOD010801/pages/179634381/Recent+Activity</description>
+  <fieldset submitButton="false">
+    <input type="time" token="timerange">
+      <label></label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Transactions</title>
+      <chart>
+        <search>
+          <query>`datapower_index` | timechart count(trans) AS Transactions</query>
+          <earliest>$timerange.earliest$</earliest>
+          <latest>$timerange.latest$</latest>
+        </search>
+        <option name="charting.chart">area</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Events by Log Level</title>
+      <chart>
+        <search>
+          <query>`datapower_index` | timechart count by log_level | fields _time error warn info notice debug</query>
+          <earliest>$timerange.earliest$</earliest>
+          <latest>$timerange.latest$</latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Device Status</title>
+      <table>
+        <search>
+          <query>| metadata type=hosts `datapower_index` 
+| eval diff = now()-recentTime
+| eval status = if(diff &gt; 30,"NOK","OK")
+| fields status host totalCount</query>
+          <earliest>$timerange.earliest$</earliest>
+          <latest>$timerange.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Top Error Service</title>
+      <table>
+        <search>
+          <query>`datapower_index` | chart count over wsgw by log_level | addtotals | eval error_ratio = round((error*100)/Total,2) | fields wsgw error_ratio | sort 10 - error_ratio</query>
+          <earliest>$timerange.earliest$</earliest>
+          <latest>$timerange.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <format type="number" field="error_ratio">
+          <option name="unit">%</option>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>
