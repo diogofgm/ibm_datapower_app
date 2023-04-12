@@ -1,0 +1,37 @@
+.ingestion_pipeline {
+    position: relative;
+    width: 1200px;
+    height: 500px;
+}
+#image_overlay_panel .image{
+    background: transparent 50% 50% no-repeat url('/static/app/ibm_datapower_app/splunk_indexing_pipeline.png');
+    position:absolute;
+    top: 0px;
+    left: 0px;
+    width: inherit;
+    height: inherit;
+}
+.singleValue {
+    font-size: 4em;
+    font-weight: bold;
+}
+#image_overlay_panel #parsing_queue {
+   position: absolute;
+   top: 430px;
+   left: 292px;
+}
+#image_overlay_panel #merging_queue {
+   position: absolute;
+   top: 430px;
+   left: 515px;
+}
+#image_overlay_panel #typing_queue {
+   position: absolute;
+   top: 430px;
+   left: 738px;
+}
+#image_overlay_panel #index_queue {
+   position: absolute;
+   top: 430px;
+   left: 954px;
+}
